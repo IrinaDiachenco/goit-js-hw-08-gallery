@@ -1,6 +1,7 @@
 import images from './gallery-items.js';
 console.log(images)
-const galleryContainer = document.querySelector('.js-gallery');
+const galleryItem = document.querySelector('.js-gallery');
+const lightboxEl = document.querySelector('.lightbox')
 const galleryItemMarkup = createGalleryItemsMarkup(images);
 function createGalleryItemsMarkup(images) {
     return images.map(image => {
@@ -21,7 +22,37 @@ function createGalleryItemsMarkup(images) {
     
     }).join('');
 };
+ 
+galleryItem.insertAdjacentHTML('afterbegin', galleryItemMarkup)
+
+galleryItem.addEventListener('click', onGalleryClick);
+
+function onGalleryClick(evt) {
+    evt.preventDefault()
+    if (evt.target.nodeName !== 'IMG') {
+        return;
+    }
+
     
+    const lightboxImageEl = document.querySelector('.lightbox__image');
+    
+    lightboxEl.classList.add('is-open');
+    lightboxImageEl.src = evt.target.dataset.source;
+    lightboxImageEl.alt = evt.target.alt;
 
+    return evt.target.dataset.source;
+}
+    
+//function clearLightBoxImage() {
+  //refs.lightBoxImage.removeAttribute("src");
+  //refs.lightBoxImage.removeAttribute("alt");
+//}
 
-galleryContainer.insertAdjacentHTML('afterbegin', galleryItemMarkup)
+//function removeClassListOnEvent() {
+  //refs.lightbox.classList.remove("is-open");
+  //clearLightBoxImage();
+//}
+//function onCloseModal(e) {
+  //if (e.target.nodeName === "I" || e.target.nodeName === "BUTTON") {
+    //removeClassListOnEvent();
+  //}
