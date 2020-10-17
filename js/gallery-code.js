@@ -39,8 +39,9 @@ function onGalleryClick(evt) {
     lightboxEl.classList.add('is-open');
     lightboxImageEl.src = evt.target.dataset.source;
     lightboxImageEl.alt = evt.target.alt;
-
+    
     return evt.target.dataset.source;
+    lightboxEl.classList.remove('is-open');
 }
     
 //function clearLightBoxImage() {
