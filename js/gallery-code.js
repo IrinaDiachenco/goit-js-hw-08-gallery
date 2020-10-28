@@ -3,6 +3,7 @@ console.log(images)
 const galleryItem = document.querySelector('.js-gallery');
 const lightboxEl = document.querySelector('.lightbox')
 const galleryItemMarkup = createGalleryItemsMarkup(images);
+const modalCloseBtn = document.querySelector('[data-action="close-lightbox"]');
 function createGalleryItemsMarkup(images) {
     return images.map(image => {
        return `
@@ -23,7 +24,7 @@ function createGalleryItemsMarkup(images) {
     }).join('');
 };
  
-galleryItem.insertAdjacentHTML('afterbegin', galleryItemMarkup)
+galleryItem.insertAdjacentHTML('beforeend', galleryItemMarkup)
 
 galleryItem.addEventListener('click', onGalleryClick);
 
@@ -39,21 +40,12 @@ function onGalleryClick(evt) {
     lightboxEl.classList.add('is-open');
     lightboxImageEl.src = evt.target.dataset.source;
     lightboxImageEl.alt = evt.target.alt;
-    
-    return evt.target.dataset.source;
-    lightboxEl.classList.remove('is-open');
+  
+  modalCloseBtn.addEventListener('click', modalClose);
+  function modalClose(){
+   lightboxEl.classList.remove('is-open');
+    lightboxImageEl.src = '';
+    lightboxImageEl.alt = '';
+    }
 }
-    
-//function clearLightBoxImage() {
-  //refs.lightBoxImage.removeAttribute("src");
-  //refs.lightBoxImage.removeAttribute("alt");
-//}
-
-//function removeClassListOnEvent() {
-  //refs.lightbox.classList.remove("is-open");
-  //clearLightBoxImage();
-//}
-//function onCloseModal(e) {
-  //if (e.target.nodeName === "I" || e.target.nodeName === "BUTTON") {
-    //removeClassListOnEvent();
-  //}
+ 
